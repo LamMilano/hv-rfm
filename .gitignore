@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+!deploy/.env.production.example
+.DS_Store
+coverage/
+# Sản phẩm build từ vue-tsc (composite) — không commit
+frontend/vite.config.js
+frontend/vite.config.d.ts
+*.tsbuildinfo
+# Chỉ giữ ở máy (thông tin nội bộ — không đưa lên repo)
+deploy/deploy.local.env
+huong-dan-tich-hop-dang-nhap-apihrm.md
+logo bvhv.jpg

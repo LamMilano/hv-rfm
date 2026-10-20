@@ -1,0 +1,24 @@
+# Postgres RIÊNG cho MRI Waiting List (tách khỏi DB của HV-MRM).
+# Dùng khi máy đã có Docker. Bật:  docker compose up -d
+# Dữ liệu lưu ở volume mri_pgdata (không mất khi tắt container).
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mri-waitlist-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mri
+      POSTGRES_PASSWORD: mri_local_dev
+      POSTGRES_DB: mri_waitlist
+    ports:
+      - "5433:5432"   # 5433 ở máy → tránh đụng Postgres 5432 của HV-MRM
+    volumes:
+      - mri_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mri -d mri_waitlist"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mri_pgdata:

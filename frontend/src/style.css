@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* ── Token thương hiệu (UI đã chốt: xanh–trắng #1366b1, Be Vietnam Pro) ── */
+@theme {
+  --color-hv: #1366b1;
+  --color-hv-dark: #0e4f8c;
+  --color-hv-darker: #0a3c6e;
+  --color-hv-soft: #eff5fd;
+  --font-sans: "Be Vietnam Pro", system-ui, sans-serif;
+}
+
+html, body, #app {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  color: #0f172a;
+  background: #eef1f5;
+}
+
+/* Số liệu canh cột đều (STT, giờ hẹn) */
+.tnum { font-variant-numeric: tabular-nums; }

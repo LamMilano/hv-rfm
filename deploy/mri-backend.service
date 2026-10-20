@@ -1,0 +1,29 @@
+# systemd unit — chạy backend MRI như dịch vụ nền, tự khởi động lại khi lỗi/khởi động máy.
+# Node đọc .env trong WorkingDirectory (server.ts import 'dotenv/config').
+#
+# Đặt file: /etc/systemd/system/mri-backend.service
+# Bật:      sudo systemctl daemon-reload
+#           sudo systemctl enable --now mri-backend
+# Theo dõi: sudo journalctl -u mri-backend -f
+
+[Unit]
+Description=MRI Waiting List - Backend (Node + Express)
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/mri-waitlist/backend
+ExecStart=/usr/bin/node dist/server.js
+Restart=on-failure
+RestartSec=3
+# Chạy bằng tài khoản dịch vụ, không phải root.
+User=www-data
+Group=www-data
+# Siết quyền (tùy chọn, an toàn hơn):
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
